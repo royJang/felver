@@ -19,7 +19,7 @@ const opts = {
 };
 const compiler = webpack(merge( config, {
     output: {
-        library: 'superLoader',
+        library: 'felver',
         libraryTarget: 'umd'
     }
 }));

@@ -5,12 +5,7 @@
   "main": "./dist/felver.min.js",
   "scripts": {
     "dev": "node build/webpack.dev.js",
-    "example": "anywhere 2000 .",
-    "test": "npm run test:load_stl_reduction; npm run clear",
-    "test:load_stl_reduction": "node examples/load_stl_reduction.js",
-    "clear": "rm -rf examples/records; ",
-    "build": "webpack --progress --hide-modules --config build/webpack.build.min.js && webpack --progress --hide-modules --config  build/webpack.build.js; npm run cp",
-    "cp": "cp -R dist/felver.min.js example/javascripts/"
+    "build": "webpack --progress --hide-modules --config build/webpack.build.min.js && webpack --progress --hide-modules --config  build/webpack.build.js;"
   },
   "repository": "https://github.com/royJang/felver.git",
   "author": "royjang <zzl11081@gmai.com>",

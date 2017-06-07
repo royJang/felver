@@ -1,4 +1,4 @@
-import { normalizeGeometry } from './util';
+import { normalizeGeometry, isGeometry } from './util';
 
 /**
  * volume of triangle
@@ -38,41 +38,83 @@ function surfaceOfTriangle ( point1, point2, point3 ) {
 }
 
 /**
- * 
- * @param { Array } vertices 
- * @param { Array } faces 
+ * get model's volume
+ * @param { Geometry, BufferGeometry } geometry  
+ * @returns { Number } volume
  */
-function volume ( vertices, faces ){
-    return faces.reduce(( prev, cur ) => {
-        return volumeOfTriangle( vertices[ prev.a ], vertices[ prev.b ], vertices[ prev.c ]  ) +=
-            volumeOfTriangle( vertices[ cur.a ], vertices[ cur.b ], vertices[ cur.c ] );
+export function volume ( geometry ){
+    var geo = normalizeGeometry( geometry ),
+        volume = 0;
+    geo.faces.forEach( face => {
+        volume += volumeOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
     });
+    return volume;
 }
 
 /**
  * get model's surface area
- * @param { Array } vertices 
- * @param { Array } faces 
+ * @param { Geometry, BufferGeometry } geometry 
+ * @returns { Number } surface area
  */
-function surfaceArea ( vertices, faces ){
-    return faces.reduce(( prev, cur ) => {
-        return surfaceOfTriangle( vertices[ prev.a ], vertices[ prev.b ], vertices[ prev.c ]  ) +=
-            surfaceOfTriangle( vertices[ cur.a ], vertices[ cur.b ], vertices[ cur.c ] );
+export function surfaceArea ( geometry ){
+    var geo = normalizeGeometry( geometry ),
+        area = 0;
+    geo.faces.forEach( face => {
+        area += surfaceOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
     });
+    return area;
 }   
 
-function whd ( object ){
-    var box;
-    if( object instanceof THREE.Mesh ){
-        box = mesh.geometry.boundingBox;
-    } else if( object instanceof THREE.Geometry || object instanceof THREE.BufferGeometry ){
-        box = normalizeGeometry( object ).boundingBox;
-    } else {
-        throw new Error( `object must be a mesh or geometry` )
-    }
+// get model's surface area and volume
+/**
+ * @param { Geometry, BufferGeometry } geometry 
+ * @returns { Obejct } area, volume
+ */
+export function surfaceWithVolume ( geometry ){
+    var geo = normalizeGeometry( geometry ),
+        area = 0,
+        volume = 0;
+    geo.faces.forEach( face => {
+        volume += volumeOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
+        area += surfaceOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
+    });
+    return {
+        "area": area,
+        "volume": volume
+    };
+}
+
+//  get model's width, height, depth
+/**
+ * 
+ * @param { Geometry, BufferGeometry } geometry 
+ * @returns {  Object } x, y, z
+ */
+export function whd ( geometry ){
+    var box = normalizeGeometry( geometry ).boundingBox;
     return {
         x: ( box.max.x - box.min.x ),
         y: ( box.max.y - box.min.y ),
         z: ( box.max.z - box.min.z )
     };      
 }   
+
+/**
+ * number of triangles vertices
+ * @param { Geometry, BufferGeometry } geometry 
+ * @returns { Number } length
+ */
+export function numOfTrianglesVertices ( geometry ){
+    var geo = normalizeGeometry( geometry );
+    return geo.vertices.length;
+}   
+
+/**
+ * number of triangles faces
+ * @param { Geometry, BufferGeometry } geometry 
+ * @returns { Number } length
+ */
+export function numOfTrianglesFaces ( geometry ){
+    var geo = normalizeGeometry( geometry );
+    return geo.faces.length;
+}

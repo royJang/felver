@@ -4,10 +4,15 @@
  * @returns { Geometry }
  */ 
 export function normalizeGeometry ( geo ){
+    if(!isGeometry( geo )) throw new Error( `The parameter must be Geometry or BufferGeometry` );
     return geo instanceof THREE.BufferGeometry 
             ? ( new THREE.Geometry ).fromBufferGeometry( geo )   
             : geo;  
 } 
+
+export function isGeometry ( geo ){
+    return geo instanceof THREE.Geometry || geo instanceof THREE.BufferGeometry;
+}
 
 /**
  * @param { type } type 
