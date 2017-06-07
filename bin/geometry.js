@@ -91,12 +91,19 @@ export function surfaceWithVolume ( geometry ){
  * @returns {  Object } x, y, z
  */
 export function whd ( geometry ){
-    var box = normalizeGeometry( geometry ).boundingBox;
-    return {
-        x: ( box.max.x - box.min.x ),
-        y: ( box.max.y - box.min.y ),
-        z: ( box.max.z - box.min.z )
-    };      
+    var geo = normalizeGeometry( geometry );
+    var box = geo.boundingBox;
+    if( !box ){
+        var mesh = new THREE.Mesh( geometry );
+        var helper = new THREE.BoxHelper( mesh );
+        console.log( helper );
+    } else {
+        return {
+            x: ( box.max.x - box.min.x ),
+            y: ( box.max.y - box.min.y ),
+            z: ( box.max.z - box.min.z )
+        };     
+    }
 }   
 
 /**
