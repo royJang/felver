@@ -1,14 +1,38 @@
+function isEmptyObject ( object ){
+    return !(typeof object === 'object' && Object.keys( object ).length > 0);
+}
+
+/**
+ * the geometry is empty? return true is Empty
+ * @param { Geometry, BufferGeometry }
+ * @returns { Boolean }
+ */
+export function isEmptyGeometry ( geo ){
+    if( geo instanceof THREE.Geometry ){
+        return geo.vertices.length === 0 && geo.faces.length === 0;
+    } else if( geo instanceof THREE.BufferGeometry ){
+        if( isEmptyObject( geo.attributes ) ){
+            return true;
+        } else {
+            return !(geo.attributes.vertices && geo.attributes.faces );
+        }
+    } else {    
+        return new Error(`${geo} is not a Geometry`);
+    }
+}
+
 /**
  * BufferGeometry to geometry
  * @param { BufferGeometry } geometry
  * @returns { Geometry }
  */ 
 export function normalizeGeometry ( geo ){
-    if(!isGeometry( geo )) throw new Error( `The parameter must be Geometry or BufferGeometry` );
+    if(!isGeometry( geo )) return new Error( `The parameter must be Geometry or BufferGeometry` );
+    if( isEmptyGeometry( geo ) ) return new THREE.Geometry();
     return geo instanceof THREE.BufferGeometry 
             ? ( new THREE.Geometry ).fromBufferGeometry( geo )   
             : geo;  
-} 
+}   
 
 export function isGeometry ( geo ){
     return geo instanceof THREE.Geometry || geo instanceof THREE.BufferGeometry;

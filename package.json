@@ -1,15 +1,15 @@
 {
   "name": "felver",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "mootools for three.js",
   "main": "./dist/felver.min.js", 
   "scripts": {
     "dev": "node build/webpack.dev.js",
-    "unit": "mocha --compilers js:babel-core/register test/unit/specs/geometry.js ",
+    "unit": "mocha --compilers js:babel-core/register test/unit/specs/*",
     "build": "webpack --progress --hide-modules --config build/webpack.build.min.js && webpack --progress --hide-modules --config  build/webpack.build.js;",
     "test:server": "node --max-old-space-size=8096 test/index.js"
   },
-  "repository": "https://github.com/royJang/felver.git",
+  "repository": "https://github.com/royJang/felver.git",  
   "author": "royjang <zzl11081@gmai.com>",
   "license": "MIT License",
   "devDependencies": {
