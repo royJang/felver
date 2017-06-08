@@ -48,7 +48,7 @@ export function volume ( geometry ){
     geo.faces.forEach( face => {
         volume += volumeOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
     });
-    return volume;
+    return parseFloat(volume.toFixed( 3 ));
 }
 
 /**
@@ -62,7 +62,7 @@ export function surfaceArea ( geometry ){
     geo.faces.forEach( face => {
         area += surfaceOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
     });
-    return area;
+    return parseFloat(area.toFixed( 3 ));
 }   
 
 // get model's surface area and volume
@@ -79,8 +79,8 @@ export function surfaceWithVolume ( geometry ){
         area += surfaceOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
     });
     return {
-        "area": area,
-        "volume": volume
+        "area": parseFloat(area.toFixed( 3 )),
+        "volume": parseFloat(volume.toFixed( 3 ))
     };
 }
 
@@ -92,18 +92,14 @@ export function surfaceWithVolume ( geometry ){
  */
 export function whd ( geometry ){
     var geo = normalizeGeometry( geometry );
-    var box = geo.boundingBox;
-    if( !box ){
-        var mesh = new THREE.Mesh( geometry );
-        var helper = new THREE.BoxHelper( mesh );
-        console.log( helper );
-    } else {
-        return {
-            x: ( box.max.x - box.min.x ),
-            y: ( box.max.y - box.min.y ),
-            z: ( box.max.z - box.min.z )
-        };     
-    }
+    if( !geo.boundingBox ) geo.computeBoundingBox();
+    const max = geo.boundingBox.max;
+    const min = geo.boundingBox.min;
+    return {
+        x: ( max.x - min.x ),
+        y: ( max.y - min.y ),
+        z: ( max.z - min.z )
+    };     
 }   
 
 /**
