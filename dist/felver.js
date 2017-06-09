@@ -784,7 +784,7 @@ function volume(geometry) {
     geo.faces.forEach(function (face) {
         volume += volumeOfTriangle(geo.vertices[face.a], geo.vertices[face.b], geo.vertices[face.c]);
     });
-    return parseFloat(volume.toFixed(3));
+    return parseFloat(volume.toFixed(2));
 }
 
 function surfaceArea(geometry) {
@@ -793,7 +793,7 @@ function surfaceArea(geometry) {
     geo.faces.forEach(function (face) {
         area += surfaceOfTriangle(geo.vertices[face.a], geo.vertices[face.b], geo.vertices[face.c]);
     });
-    return parseFloat(area.toFixed(3));
+    return parseFloat(area.toFixed(2));
 }
 
 function surfaceWithVolume(geometry) {
@@ -805,8 +805,8 @@ function surfaceWithVolume(geometry) {
         area += surfaceOfTriangle(geo.vertices[face.a], geo.vertices[face.b], geo.vertices[face.c]);
     });
     return {
-        "area": parseFloat(area.toFixed(3)),
-        "volume": parseFloat(volume.toFixed(3))
+        "area": parseFloat(area.toFixed(2)),
+        "volume": parseFloat(volume.toFixed(2))
     };
 }
 
@@ -816,9 +816,9 @@ function whd(geometry) {
     var max = geo.boundingBox.max;
     var min = geo.boundingBox.min;
     return {
-        x: parseFloat((max.x - min.x).toFixed(2)),
-        y: parseFloat((max.y - min.y).toFixed(2)),
-        z: parseFloat((max.z - min.z).toFixed(2))
+        x: parseFloat((max.x - min.x).toFixed(3)),
+        y: parseFloat((max.y - min.y).toFixed(3)),
+        z: parseFloat((max.z - min.z).toFixed(3))
     };
 }
 

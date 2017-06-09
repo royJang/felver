@@ -16,13 +16,13 @@ describe('BoxGeometry', function() {
         expect(geometry.whd( generator.boxGeometry())).to.be.deep.equal({ x: 1, y: 1, z: 1 });
     });
     it('surfaceWithVolume', function (){
-        expect(geometry.surfaceWithVolume( generator.boxGeometry())).to.be.deep.equal({ volume: 1.000, area: 6.000 });
+        expect(geometry.surfaceWithVolume( generator.boxGeometry())).to.be.deep.equal({ volume: 1.00, area: 6.00 });
     });
     it('surfaceArea', function (){
         expect(geometry.surfaceArea( generator.boxGeometry())).to.be.equal( 6.00 );
     });
     it('volume', function (){
-        expect(geometry.volume( generator.boxGeometry())).to.be.equal( 1.000 );
+        expect(geometry.volume( generator.boxGeometry())).to.be.equal( 1.00 );
     });
 });
 
@@ -37,13 +37,13 @@ describe('ShpereGeometry', function() {
         expect(geometry.whd( generator.shpereGeometry())).to.be.deep.equal({ x: 10, y: 10, z: 10 });
     });
     it('surfaceWithVolume', function (){
-        expect(geometry.surfaceWithVolume( generator.shpereGeometry())).to.be.deep.equal({ volume: 518.988, area: 312.774 });
+        expect(geometry.surfaceWithVolume( generator.shpereGeometry())).to.be.deep.equal({ volume: 518.99, area: 312.77 });
     });
     it('surfaceArea', function (){
-        expect(geometry.surfaceArea( generator.shpereGeometry())).to.be.equal( 312.774 );
+        expect(geometry.surfaceArea( generator.shpereGeometry())).to.be.equal( 312.77 );
     });
     it('volume', function (){
-        expect(geometry.volume( generator.shpereGeometry())).to.be.equal( 518.988 );
+        expect(geometry.volume( generator.shpereGeometry())).to.be.equal( 518.99 );
     });
 });
 

@@ -48,7 +48,7 @@ export function volume ( geometry ){
     geo.faces.forEach( face => {
         volume += volumeOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
     });
-    return parseFloat(volume.toFixed( 3 ));
+    return parseFloat(volume.toFixed( 2 ));
 }
 
 /**
@@ -62,7 +62,7 @@ export function surfaceArea ( geometry ){
     geo.faces.forEach( face => {
         area += surfaceOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
     });
-    return parseFloat(area.toFixed( 3 ));
+    return parseFloat(area.toFixed( 2 ));
 }   
 
 // get model's surface area and volume
@@ -79,8 +79,8 @@ export function surfaceWithVolume ( geometry ){
         area += surfaceOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
     });
     return {
-        "area": parseFloat(area.toFixed( 3 )),
-        "volume": parseFloat(volume.toFixed( 3 ))
+        "area": parseFloat(area.toFixed( 2 )),
+        "volume": parseFloat(volume.toFixed( 2 ))
     };
 }
 
@@ -96,9 +96,9 @@ export function whd ( geometry ){
     const max = geo.boundingBox.max;
     const min = geo.boundingBox.min;
     return {
-        x: parseFloat(( max.x - min.x ).toFixed( 2 )),
-        y: parseFloat(( max.y - min.y ).toFixed( 2 )),
-        z: parseFloat(( max.z - min.z ).toFixed( 2 ))
+        x: parseFloat(( max.x - min.x ).toFixed( 3 )),
+        y: parseFloat(( max.y - min.y ).toFixed( 3 )),
+        z: parseFloat(( max.z - min.z ).toFixed( 3 ))
     };     
 }   
 
