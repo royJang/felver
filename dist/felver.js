@@ -816,9 +816,9 @@ function whd(geometry) {
     var max = geo.boundingBox.max;
     var min = geo.boundingBox.min;
     return {
-        x: parseFloat((max.x - min.x).toFixed(3)),
-        y: parseFloat((max.y - min.y).toFixed(3)),
-        z: parseFloat((max.z - min.z).toFixed(3))
+        x: parseFloat((max.x - min.x).toFixed(2)),
+        y: parseFloat((max.y - min.y).toFixed(2)),
+        z: parseFloat((max.z - min.z).toFixed(2))
     };
 }
 

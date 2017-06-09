@@ -96,9 +96,9 @@ export function whd ( geometry ){
     const max = geo.boundingBox.max;
     const min = geo.boundingBox.min;
     return {
-        x: parseFloat(( max.x - min.x ).toFixed( 3 )),
-        y: parseFloat(( max.y - min.y ).toFixed( 3 )),
-        z: parseFloat(( max.z - min.z ).toFixed( 3 ))
+        x: parseFloat(( max.x - min.x ).toFixed( 2 )),
+        y: parseFloat(( max.y - min.y ).toFixed( 2 )),
+        z: parseFloat(( max.z - min.z ).toFixed( 2 ))
     };     
 }   
 

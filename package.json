@@ -1,6 +1,6 @@
 {
     "name": "felver",
-    "version": "1.0.6",
+    "version": "1.0.10",
     "description": "mootools for three.js",
     "main": "./dist/felver.min.js",
     "scripts": {
@@ -9,7 +9,7 @@
         "build": "webpack --progress --hide-modules --config build/webpack.build.min.js && webpack --progress --hide-modules --config  build/webpack.build.js;",
         "test:server": "node --max-old-space-size=8096 test/index.js",
         "release": "av auto; npm run unit; npm run build; npm publish;"
-    },  
+    },
     "repository": "https://github.com/royJang/felver.git",
     "author": "royjang <zzl11081@gmai.com>",
     "license": "MIT License",
