@@ -1,6 +1,6 @@
 {
     "name": "felver",
-    "version": "1.0.16",
+    "version": "1.0.11",
     "description": "mootools for three.js",
     "main": "./dist/felver.min.js",
     "scripts": {
