@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: geometry.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: geometry.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { normalizeGeometry, isGeometry } from './util';
+
+/**
+ * volume of triangle
+ * @private
+ * @param { Vector3 } point1 
+ * @param { Vector3 } point2 
+ * @param { Vector3 } point3 
+ * @returns { Number }
+ */
+function volumeOfTriangle ( point1, point2, point3 ) {
+    var v321 = point3.x * point2.y * point1.z;
+    var v231 = point2.x * point3.y * point1.z;
+    var v312 = point3.x * point1.y * point2.z;
+    var v132 = point1.x * point3.y * point2.z;
+    var v213 = point2.x * point1.y * point3.z;
+    var v123 = point1.x * point2.y * point3.z;
+    return ( 1.0 / 6.0 ) * ( -v321 + v231 + v312 - v132 - v213 + v123 );
+}
+
+/**
+ * surface of triangle
+ * @private
+ * @param { Vector3 } point1
+ * @param { Vector3 } point2
+ * @param { Vector3 } point3
+ * @returns { Number }
+ */
+function surfaceOfTriangle ( point1, point2, point3 ) {
+    var ax = point2.x - point1.x;
+    var ay = point2.y - point1.y;
+    var az = point2.z - point1.z;
+    var bx = point3.x - point1.x;
+    var by = point3.y - point1.y;
+    var bz = point3.z - point1.z;       
+    var cx = ay * bz - az * by;
+    var cy = az * bx - ax * bz;
+    var cz = ax * by - ay * bx;
+    return 0.5 * Math.sqrt( cx * cx + cy * cy + cz * cz );
+}
+
+/**
+ * get model's volume
+ * @param {(Geometry | BufferGeometry)} - geometry  
+ * @returns { Number } volume
+ */
+export function volume ( geometry ){
+    var geo = normalizeGeometry( geometry ),
+        volume = 0;
+    geo.faces.forEach( face => {
+        volume += volumeOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
+    });
+    return parseFloat(volume.toFixed( 2 ));
+}
+
+/**
+ * get model's surface area
+ * @param {(Geometry | BufferGeometry)} - geometry 
+ * @returns { Number } surface area
+ */
+export function surfaceArea ( geometry ){
+    var geo = normalizeGeometry( geometry ),
+        area = 0;
+    geo.faces.forEach( face => {
+        area += surfaceOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
+    });
+    return parseFloat(area.toFixed( 2 ));
+}   
+
+/**
+ * get model's surface area and volume
+ * @param {(Geometry | BufferGeometry)} - geometry 
+ * @returns { Obejct } area, volume
+ */
+export function surfaceWithVolume ( geometry ){
+    var geo = normalizeGeometry( geometry ),
+        area = 0,
+        volume = 0;
+    geo.faces.forEach( face => {
+        volume += volumeOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
+        area += surfaceOfTriangle( geo.vertices[ face.a ], geo.vertices[ face.b ], geo.vertices[ face.c ] );
+    });
+    return {
+        "area": parseFloat(area.toFixed( 2 )),
+        "volume": parseFloat(volume.toFixed( 2 ))
+    };
+}
+
+/**
+ * get model's width, height, depth
+ * @param {(Geometry | BufferGeometry)} - geometry 
+ * @returns {  Object } x, y, z
+ */
+export function whd ( geometry ){
+    var geo = normalizeGeometry( geometry );
+    if( !geo.boundingBox ) geo.computeBoundingBox();
+    const max = geo.boundingBox.max;
+    const min = geo.boundingBox.min;
+    return {
+        x: parseFloat(( max.x - min.x ).toFixed( 3 )),
+        y: parseFloat(( max.y - min.y ).toFixed( 3 )),
+        z: parseFloat(( max.z - min.z ).toFixed( 3 ))
+    };     
+}   
+
+/**
+ * number of triangles vertices
+ * @param {(Geometry | BufferGeometry)} - geometry 
+ * @returns { Number } length
+ */
+export function numOfTrianglesVertices ( geometry ){
+    var geo = normalizeGeometry( geometry );
+    return geo.vertices.length;
+}   
+
+/**
+ * number of triangles faces
+ * @param {(Geometry | BufferGeometry)} - geometry 
+ * @returns { Number } length
+ */
+export function numOfTrianglesFaces ( geometry ){
+    var geo = normalizeGeometry( geometry );
+    return geo.faces.length;
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#isEmptyGeometry">isEmptyGeometry</a></li><li><a href="global.html#isFBX">isFBX</a></li><li><a href="global.html#isGeometry">isGeometry</a></li><li><a href="global.html#isOBJ">isOBJ</a></li><li><a href="global.html#isSTL">isSTL</a></li><li><a href="global.html#normalizeGeometry">normalizeGeometry</a></li><li><a href="global.html#numOfTrianglesFaces">numOfTrianglesFaces</a></li><li><a href="global.html#numOfTrianglesVertices">numOfTrianglesVertices</a></li><li><a href="global.html#surfaceArea">surfaceArea</a></li><li><a href="global.html#surfaceWithVolume">surfaceWithVolume</a></li><li><a href="global.html#toArrayBuffer">toArrayBuffer</a></li><li><a href="global.html#toBuffer">toBuffer</a></li><li><a href="global.html#volume">volume</a></li><li><a href="global.html#whd">whd</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 15 2017 09:58:47 GMT+0800 (CST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
