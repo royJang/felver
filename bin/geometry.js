@@ -2,6 +2,7 @@ import { normalizeGeometry, isGeometry } from './util';
 
 /**
  * volume of triangle
+ * @private
  * @param { Vector3 } point1 
  * @param { Vector3 } point2 
  * @param { Vector3 } point3 
@@ -19,6 +20,7 @@ function volumeOfTriangle ( point1, point2, point3 ) {
 
 /**
  * surface of triangle
+ * @private
  * @param { Vector3 } point1
  * @param { Vector3 } point2
  * @param { Vector3 } point3
@@ -39,7 +41,7 @@ function surfaceOfTriangle ( point1, point2, point3 ) {
 
 /**
  * get model's volume
- * @param { Geometry, BufferGeometry } geometry  
+ * @param {(Geometry | BufferGeometry)} - geometry  
  * @returns { Number } volume
  */
 export function volume ( geometry ){
@@ -53,7 +55,7 @@ export function volume ( geometry ){
 
 /**
  * get model's surface area
- * @param { Geometry, BufferGeometry } geometry 
+ * @param {(Geometry | BufferGeometry)} - geometry 
  * @returns { Number } surface area
  */
 export function surfaceArea ( geometry ){
@@ -65,9 +67,9 @@ export function surfaceArea ( geometry ){
     return parseFloat(area.toFixed( 2 ));
 }   
 
-// get model's surface area and volume
 /**
- * @param { Geometry, BufferGeometry } geometry 
+ * get model's surface area and volume
+ * @param {(Geometry | BufferGeometry)} - geometry 
  * @returns { Obejct } area, volume
  */
 export function surfaceWithVolume ( geometry ){
@@ -84,10 +86,9 @@ export function surfaceWithVolume ( geometry ){
     };
 }
 
-//  get model's width, height, depth
 /**
- * 
- * @param { Geometry, BufferGeometry } geometry 
+ * get model's width, height, depth
+ * @param {(Geometry | BufferGeometry)} - geometry 
  * @returns {  Object } x, y, z
  */
 export function whd ( geometry ){
@@ -104,7 +105,7 @@ export function whd ( geometry ){
 
 /**
  * number of triangles vertices
- * @param { Geometry, BufferGeometry } geometry 
+ * @param {(Geometry | BufferGeometry)} - geometry 
  * @returns { Number } length
  */
 export function numOfTrianglesVertices ( geometry ){
@@ -114,7 +115,7 @@ export function numOfTrianglesVertices ( geometry ){
 
 /**
  * number of triangles faces
- * @param { Geometry, BufferGeometry } geometry 
+ * @param {(Geometry | BufferGeometry)} - geometry 
  * @returns { Number } length
  */
 export function numOfTrianglesFaces ( geometry ){
